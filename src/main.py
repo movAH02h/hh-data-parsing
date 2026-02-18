@@ -1,50 +1,38 @@
 import logging
-import sys
+import os
+from utils import get_user_file_path
 from loaders import FileLoader
-from cleaners import MojibakeCorrector
+from cleaners import MojibakeCorrector, CsvSaver
+from processors import SalaryExtractor, FeatureEncoder
+from storage import NumpyNanny
 
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
 
-def get_user_file_path() -> Optional[Tuple[str, str]]:
-    """
-    Запрашивает путь к директории у пользователя и формирует путь к файлу.
-
-    Аргументы:
-        Нет.
-
-    Вернёт:
-        Optional[Tuple[str, str]]: Кортеж (путь_к_файлу, базовая_директория)
-            в случае успеха, иначе None.
-
-    Исключения:
-        Ошибки ввода-вывода при обращении к файловой системе.
-    """
-    prompt_msg = (
-        f"Введите директорию с файлом 'hh.csv'. "
-        f"Туда сохранятся файлы {x_data_file} и {y_data_file}: "
-    )
-
-    base_dir: str = input(prompt_msg)
-    path_csv: str = os.path.join(base_dir, "hh.csv")
-
-    if not os.path.exists(path_csv):
-        logger.error(f"Файл '{path_csv}' не найден")
-        return None
-
-    return path_csv, base_dir
-
-
-def run_app(csv_path: str, base_dir: str) -> None:
+def main() -> None:
     """
     Запускает полный пайплайн обработки данных из CSV-файла.
 
-    Аргументы:
-        csv_path (str): Путь к исходному CSV-файлу.
-        base_dir (str): Путь для сохранения результатов.
+    Вернет:
+        None
     """
-    logger.info(f"Запуск пайплайна для файла: {csv_path}")
-    pipeline: FileLoader = FileLoader()
+    csv_path = get_user_file_path()
+    if csv_path is None:
+        return
 
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    DATA_DIR = os.path.join(BASE_DIR, "data")
+    CLEANED_CSV = os.path.join(DATA_DIR, "hh_cleaned.csv")
+
+    logger.info(f"Запуск пайплайна для файла: {csv_path}")
+    pipeline = FileLoader()
+
+    pipeline = FileLoader()
     (pipeline.set_next(MojibakeCorrector())
+             .set_next(CsvSaver(CLEANED_CSV))
+             .set_next(SalaryExtractor())
+             .set_next(FeatureEncoder())
+             .set_next(NumpyNanny(DATA_DIR)))
 
     try:
         pipeline.process(csv_path)
@@ -57,7 +45,4 @@ def run_app(csv_path: str, base_dir: str) -> None:
         raise RuntimeError(f"Критический сбой: {e}")
 
 if __name__ == "__main__":
-    result = get_user_file_path()
-    if result:
-        path_csv, base_dir = result
-        run_app(path_csv, base_dir)
+    main()
