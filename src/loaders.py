@@ -1,7 +1,9 @@
 import io
 import logging
 import pandas as pd
-from .base import ProcessingStep
+from base import ProcessingStep
+
+logger = logging.getLogger(__name__)
 
 class FileLoader(ProcessingStep):
     """Загружает CSV-файл из указанного пути."""
