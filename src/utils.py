@@ -11,7 +11,7 @@ def get_user_file_path(default_filename="hh.csv") -> Optional[str]:
     Аргументы:
         Нет.
 
-    Вернёт:
+    Вернет:
         Optional[str]: путь_к_файлу в случае успеха, иначе None.
 
     Исключения:
