@@ -19,3 +19,6 @@
 2. Установите зависимости:
    ```bash
    pip install -r requirements.txt
+
+
+Следующее ДЗ: https://github.com/movAH02h/hh-salary-regression.git
