@@ -5,6 +5,7 @@ from base import ProcessingStep
 
 logger = logging.getLogger(__name__)
 
+
 class MojibakeCorrector(ProcessingStep):
     """Исправляет проблемы с кодировкой (Mojibake) в текстовых данных."""
 
@@ -16,7 +17,7 @@ class MojibakeCorrector(ProcessingStep):
         Аргументы:
             text (Any): Исходная строка.
 
-        Вернёт:
+        Вернет:
             Any: Исправленная строка или исходное значение.
         """
         if not isinstance(text, str):
@@ -33,7 +34,7 @@ class MojibakeCorrector(ProcessingStep):
         Аргументы:
             df (pd.DataFrame): DataFrame с проблемами кодировки.
 
-        Вернёт:
+        Вернет:
             pd.DataFrame: Исправленный DataFrame.
         """
         logger.info("Исправление кодировки (Mojibake)...")
@@ -51,4 +52,3 @@ class CsvSaver(ProcessingStep):
         logger.info(f"Сохранение очищенного файла в: {self.output_path}")
         df.to_csv(self.output_path, index=False, encoding="utf-8-sig")
         return super().process(df)
-
