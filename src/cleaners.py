@@ -40,3 +40,15 @@ class MojibakeCorrector(ProcessingStep):
         df.columns = [self._repair_string(col) for col in df.columns]
         df = df.map(self._repair_string)
         return super().process(df)
+
+
+class CsvSaver(ProcessingStep):
+    def __init__(self, output_path: str):
+        super().__init__()
+        self.output_path = output_path
+
+    def process(self, df: pd.DataFrame) -> pd.DataFrame:
+        logger.info(f"Сохранение очищенного файла в: {self.output_path}")
+        df.to_csv(self.output_path, index=False, encoding="utf-8-sig")
+        return super().process(df)
+
