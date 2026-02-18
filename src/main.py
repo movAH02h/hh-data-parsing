@@ -27,7 +27,6 @@ def main() -> None:
     logger.info(f"Запуск пайплайна для файла: {csv_path}")
     pipeline = FileLoader()
 
-    pipeline = FileLoader()
     (pipeline.set_next(MojibakeCorrector())
              .set_next(CsvSaver(CLEANED_CSV))
              .set_next(SalaryExtractor())
