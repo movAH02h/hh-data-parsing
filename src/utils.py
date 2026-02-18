@@ -1,9 +1,10 @@
+from typing import Optional
 import os
 import logging
 
 logger = logging.getLogger(__name__)
 
-def get_user_file_path(default_filename="hh.csv") -> Optional[Tuple[str, str]]:
+def get_user_file_path(default_filename="hh.csv") -> Optional[str]:
     """
     Запрашивает путь к .csv файлу.
 
