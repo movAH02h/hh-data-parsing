@@ -5,7 +5,6 @@ from base import ProcessingStep
 
 logger = logging.getLogger(__name__)
 
-
 class FileLoader(ProcessingStep):
     """Загружает CSV-файл из указанного пути."""
 
