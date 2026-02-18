@@ -24,7 +24,7 @@ class NumpyNanny(ProcessingStep):
         Аргументы:
             df (pd.DataFrame): Итоговый DataFrame.
 
-        Вернёт:
+        Вернет:
             pd.DataFrame: Исходный DataFrame.
 
         Исключения:
