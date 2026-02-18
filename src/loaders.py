@@ -5,6 +5,7 @@ from base import ProcessingStep
 
 logger = logging.getLogger(__name__)
 
+
 class FileLoader(ProcessingStep):
     """Загружает CSV-файл из указанного пути."""
 
@@ -15,7 +16,7 @@ class FileLoader(ProcessingStep):
         Аргументы:
             file_path (str): Путь к CSV-файлу для загрузки.
 
-        Вернёт:
+        Вернет:
             pd.DataFrame: Загруженные данные в виде DataFrame.
 
         Исключения:
