@@ -14,7 +14,7 @@ class SalaryExtractor(ProcessingStep):
         Аргументы:
             df (pd.DataFrame): Исходный DataFrame.
 
-        Вернёт:
+        Вернет:
             pd.DataFrame: DataFrame с числовой колонкой 'target_salary'.
         """
         logger.info("Извлечение целевой переменной (ЗП)...")
@@ -53,7 +53,7 @@ class FeatureEncoder(ProcessingStep):
         Аргументы:
             df (pd.DataFrame): DataFrame с категориями.
 
-        Вернёт:
+        Вернет:
             pd.DataFrame: DataFrame с закодированными признаками.
         """
         logger.info("Кодирование признаков...")
