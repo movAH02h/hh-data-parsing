@@ -5,7 +5,6 @@ from base import ProcessingStep
 
 logger = logging.getLogger(__name__)
 
-
 class MojibakeCorrector(ProcessingStep):
     """Исправляет проблемы с кодировкой (Mojibake) в текстовых данных."""
 
